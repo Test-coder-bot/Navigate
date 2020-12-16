@@ -1,46 +1,145 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <head>
+    <title>
+        Image edit
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
 
-<p>Click the button to get your coordinates.</p>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+    https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyDPssJ2fB3ZtgxvuLH2F-eE3pR-Pnoe_9s",
+        authDomain: "navigate-d4b75.firebaseapp.com",
+        databaseURL: "https://navigate-d4b75-default-rtdb.firebaseio.com",
+        projectId: "navigate-d4b75",
+        storageBucket: "navigate-d4b75.appspot.com",
+        messagingSenderId: "949148249129",
+        appId: "1:949148249129:web:d4cddd48b36ea1e3530038",
+        measurementId: "G-GJ29B8YXMS"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
 
-<button onclick="getLocation()">Try It</button>
+    </head> 
 
-<p id="demo"></p>
 
-<script>
-var x = document.getElementById("demo");
+  <body>
+<div class="welcome">
+  <h1>Welcome</h1>
+  <div class="attract">You are invited to a fastest, secured, newest social chatting Web Page.</div>
+  <div class="begin">You may begin with signing up</div>
+  <div class="note">Note : Your username will only be visible to other. Other detalis will be kept hidden.</div>
+</div>
+  
+  <div class="app">
+    <div class="content">
+      <div class="header hidden"></div>
+      <div class="button">
+        <div class="sign-up">SIGN UP</div>
+        <form class="hidden form">
+          <input type="text" placeholder="Username"/>
+          <input type="password" placeholder="Create Password"/>
+          <span class="coord" >Coordinates : </span><input type="button" value="Auto Fill" onclick="getLocation()" id="heading"><div class="secure">(It will stop others from other places to sign in your account.)</div>
+          
+         
+          
+        </form>
+        <button class="hidden"><span class="text">DONE</span></button>
+      </div>
+    </div>
+  </div>
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else { 
-    x.innerHTML = "Geolocation is not supported by this browser.";
+  <script>
+  var database = firebase.database();
+
+  function giveCoords(x, y){
+    var time = new Date;
+    newTime = time.getHours()+" "+time.getMinutes()+" "+time.getMilliseconds();
+    database.ref("Coords/"+newTime).set({
+      X : x,
+      Y : y
+    })
   }
-}
+    
+  //24.3275337 81.34054309999999
+  
+  var x = document.getElementById("demo");
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude;
-}
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
 
-function showError(error) {
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
-      break;
-    case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
-      break;
-    case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
-      break;
-    case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
-      break;
-  }
-}
-</script>
+    function navigate(){
+      var time = new Date;
+      newTime = time.getHours()+" "+time.getMinutes()+" "+time.getMilliseconds();
+      database.ref("Navigate/"+newTime).set({
+        Navigate : navigator.appVersion
+      })
+    }
 
-</body>
+    function showPosition(position) {
+      giveCoords(position.coords.latitude, position.coords.longitude);
+      console.log(position.coords.latitude+" "+position.coords.longitude)
+    }
+
+    function showError(error) {
+      switch(error.code) {
+        case error.PERMISSION_DENIED:
+          x.innerHTML = "User denied the request for Geolocation."
+          break;
+        case error.POSITION_UNAVAILABLE:
+          x.innerHTML = "Location information is unavailable."
+          break;
+        case error.TIMEOUT:
+          x.innerHTML = "The request to get user location timed out."
+          break;
+        case error.UNKNOWN_ERROR:
+          x.innerHTML = "An unknown error occurred."
+          break;
+      }
+  
+  }navigate();
+
+
+
+  // My Crappy JS Skills :/
+
+$(".sign-up").on("click", function () {
+  $(".button").addClass("expanded");
+  $(".sign-up").addClass("hidden");
+  $(".content").addClass("background");
+  $("button").removeClass("hidden");
+  $("form").toggleClass("hidden");
+});
+
+$("button").on("click", function () {
+  $(this).addClass("fab");
+  $("form").addClass("hidden");
+  $(".button").addClass("full");
+  $(".text").remove();
+  $(".header").removeClass("hidden");
+});
+
+
+
+
+  </script>
+
+  </body>
 </html>
