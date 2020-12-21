@@ -219,9 +219,16 @@ h1 {
     z-index: -1;
   }
 
+  h1 {
+    margin: 0%;
+  }
+  .welcome {
+    padding: 0%;
+    margin: 0%;
+  }
   .points {
     position: absolute;
-    margin-top: 70%;
+    bottom: 0%;
     color: #2a0c49;
     background-color: rgb(33, 243, 250);
   }
