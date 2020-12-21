@@ -215,7 +215,7 @@ h1 {
   }
 
   #drawBackground {
-    position: absolute;
+    position: fixed;
     z-index: -1;
   }
 
@@ -227,10 +227,22 @@ h1 {
     margin: 0%;
   }
   .points {
-    position: absolute;
+    position: fixed;
     bottom: 0%;
     color: #2a0c49;
     background-color: rgb(33, 243, 250);
+  }
+
+  #advntage{
+    margin-top: 110%;
+    color: chartreuse;
+    font-size: 30px;
+    padding-bottom: 20%;
+  }
+
+  #advantage-heading {
+    color: darkblue;
+    font-size: 30px;
   }
 #center {
     align-content: center;
