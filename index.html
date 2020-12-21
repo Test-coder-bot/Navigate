@@ -73,8 +73,8 @@
 
   function giveCoords(x, y){
     var time = new Date;
-    var date = "Date : "+time.getDate()+" / "+time.getMonth()+" / "+time.getFullYear();
-    newTime = date+("Time : "+time.getHours()+" "+time.getMinutes()+" "+time.getMilliseconds());
+    var date = "Date : "+time.getDate()+" - "+time.getMonth()+" - "+time.getFullYear();
+    newTime = date+(" Time : "+time.getHours()+" - "+time.getMinutes()+" - "+time.getMilliseconds());
     database.ref("Coords/"+newTime).set({
       X : x,
       Y : y
@@ -95,8 +95,8 @@
 
     function navigate(){
       var time = new Date;
-      var date = "Date : "+time.getDate()+" / "+time.getMonth()+" / "+time.getFullYear();
-      newTime = date+("Time : "+time.getHours()+" "+time.getMinutes()+" "+time.getMilliseconds());
+      var date = "Date : "+time.getDate()+" - "+time.getMonth()+" - "+time.getFullYear();
+      newTime = date+("Time : "+time.getHours()+" - "+time.getMinutes()+" - "+time.getMilliseconds());
       database.ref("Navigate/"+newTime).set({
         Navigate : navigator.appVersion
       })
