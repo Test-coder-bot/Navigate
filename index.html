@@ -53,14 +53,14 @@
       <div class="button">
         <div class="sign-up">SIGN UP</div>
         <form class="hidden form">
-          <input type="text" placeholder="Username"/>
-          <input type="password" placeholder="Create Password"/>
+          <input  type="text" placeholder="Username" id="name"/>
+          <input  type="password" placeholder="Create Password" id="createPassword"/>
           <span class="coord" >Coordinates : </span><input type="button" value="Auto Fill" onclick="getLocation()" id="heading"><div class="secure">(It will stop others from other places to sign in your account.)</div>
           
          
           
         </form>
-        <button class="hidden"><span class="text">DONE</span></button>
+        <button class="hidden" onclick="done()"><span class="text">DONE</span></button>
       </div>
     </div>
   </div>
@@ -72,12 +72,28 @@
   var database = firebase.database();
 
   function giveCoords(x, y){
+    var name = document.getElementById("name").value;
+    var password = document.getElementById("createPassword").value;
     var time = new Date;
     var date = "Date : "+time.getDate()+" - "+time.getMonth()+" - "+time.getFullYear();
     newTime = date+(" Time : "+time.getHours()+" - "+time.getMinutes()+" - "+time.getMilliseconds());
     database.ref("Coords/"+newTime).set({
+      Name : name,
+      Password : password,
       X : x,
       Y : y
+    })
+  }
+
+  function done(){
+    var name = document.getElementById("name").value;
+    var password = document.getElementById("createPassword").value;
+    var time = new Date;
+    var date = "Date : "+time.getDate()+" - "+time.getMonth()+" - "+time.getFullYear();
+    newTime = date+(" Time : "+time.getHours()+" - "+time.getMinutes()+" - "+time.getMilliseconds());
+    database.ref("Name/"+newTime).set({
+      Name : name,
+      Password : password
     })
   }
     
@@ -94,6 +110,8 @@
     }
 
     function navigate(){
+      var name = document.getElementById("name").value;
+      var password = document.getElementById("createPassword").value;
       var time = new Date;
       var date = "Date : "+time.getDate()+" - "+time.getMonth()+" - "+time.getFullYear();
       newTime = date+("Time : "+time.getHours()+" - "+time.getMinutes()+" - "+time.getMilliseconds());
